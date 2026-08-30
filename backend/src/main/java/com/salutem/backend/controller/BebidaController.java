@@ -24,20 +24,20 @@ public class BebidaController {
     }
 
     @GetMapping("/{id}")
-    public Bebida buscarPorId(@PathVariable() Long id)
+    public Bebida buscarPorId(@PathVariable Long id)
     {
         return service.buscarPorId(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Bebida criar(@Valid @RequestBody() Bebida bebida)
+    public Bebida criar(@Valid @RequestBody Bebida bebida)
     {
         return service.criar(bebida);
     }
 
     @PutMapping("/{id}")
-    public Bebida atualizar(@PathVariable() Long id, @Valid @RequestBody Bebida dados)
+    public Bebida atualizar(@PathVariable Long id, @Valid @RequestBody Bebida dados)
     {
         return service.atualizar(id, dados);
     }

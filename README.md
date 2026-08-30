@@ -10,7 +10,7 @@
 
 | Serviço | Porta |
 |---|---|
-| API | 8080|
+| API | 8080 |
 | PostgreSQL | 5433 |
 
 ## Como executar
