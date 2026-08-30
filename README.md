@@ -1,13 +1,27 @@
-Teste Técnico Salutem
+# Lanchonete - Teste Técnico Salutem
 
-Versões
+## Versões
 
-Backend:
-    - Type: Maven
-    - JDK: 21
-    - Java: 21
-    - Spring Boot: 4.1.1
-    - Postgres: 18
+- **Backend:** Java 21 + Spring Boot 4.1.1 (Maven)
+- **Front-end:** Angular
+- **Banco:** PostgreSQL 18 (Docker)
 
-Portas:
-    Docker: 5433:5432
+## Portas
+
+| Serviço | Porta |
+|---|---|
+| API | 8080|
+| PostgreSQL | 5433 |
+
+## Como executar
+
+### 1. Banco de dados
+Na raiz do projeto:
+
+    docker compose up -d
+
+### 2. Backend
+
+    cd backend
+    ./mvnw spring-boot:run
+
