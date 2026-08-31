@@ -3,6 +3,7 @@ package com.salutem.backend.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -46,6 +47,37 @@ public class Pedido {
 
     @ManyToMany
     private List<Ingrediente> adicionais;
+
+    public BigDecimal getTotal()
+    {
+        BigDecimal somaTotal = BigDecimal.ZERO;
+
+        if (hamburgueres != null)
+        {
+            for (Hamburguer hamburguer : hamburgueres)
+            {
+                somaTotal = somaTotal.add(hamburguer.getValor());
+            }
+        }
+
+        if (bebidas != null)
+        {
+            for (Bebida bebida : bebidas)
+            {
+                somaTotal = somaTotal.add(bebida.getPrecoUnitario());
+            }
+        }
+
+        if (adicionais != null)
+        {
+            for (Ingrediente ingrediente : adicionais)
+            {
+                somaTotal = somaTotal.add(ingrediente.getPrecoUnitario());
+            }
+        }
+
+        return somaTotal;
+    }
 
     public Long getId() {
         return id;
