@@ -6,6 +6,7 @@ import com.salutem.backend.entity.Ingrediente;
 import com.salutem.backend.entity.Pedido;
 import com.salutem.backend.exception.CodigoDuplicadoException;
 import com.salutem.backend.exception.RecursoNaoEncontradoException;
+import com.salutem.backend.exception.RegraDeNegocioException;
 import com.salutem.backend.repository.BebidaRepository;
 import com.salutem.backend.repository.HamburguerRepository;
 import com.salutem.backend.repository.IngredienteRepository;
@@ -22,6 +23,8 @@ public class PedidoService {
     private final HamburguerRepository hamburguerRepository;
     private final BebidaRepository bebidaRepository;
     private final IngredienteRepository ingredienteRepository;
+
+    // Validações
 
     private List<Hamburguer> validarHamburgueres(List<Hamburguer> hamburgueres)
     {
@@ -71,6 +74,14 @@ public class PedidoService {
         return validos;
     }
 
+    private void validarPedidoNaoVazio(Pedido pedido)
+    {
+        if (pedido.getBebidas().isEmpty() && pedido.getHamburgueres().isEmpty())
+        {
+            throw new RegraDeNegocioException("Um pedido tem que ter pelo menos 1 bebida ou hamburguer");
+        }
+    }
+
     public PedidoService(PedidoRepository repository, HamburguerRepository hamburguerRepository, BebidaRepository bebidaRepository, IngredienteRepository ingredienteRepository)
     {
         this.repository = repository;
@@ -78,6 +89,8 @@ public class PedidoService {
         this.bebidaRepository = bebidaRepository;
         this.ingredienteRepository = ingredienteRepository;
     }
+
+    // Métodos públicos
 
     public List<Pedido> listarTodos() {return repository.findAll();}
 
@@ -94,6 +107,8 @@ public class PedidoService {
         pedido.setHamburgueres(validarHamburgueres(pedido.getHamburgueres()));
         pedido.setBebidas(validarBebidas(pedido.getBebidas()));
         pedido.setAdicionais(validarAdicionais(pedido.getAdicionais()));
+
+        validarPedidoNaoVazio(pedido);
 
         return repository.save(pedido);
     }
@@ -118,6 +133,8 @@ public class PedidoService {
         pedido.setHamburgueres(validarHamburgueres(dados.getHamburgueres()));
         pedido.setBebidas(validarBebidas(dados.getBebidas()));
         pedido.setAdicionais(validarAdicionais(dados.getAdicionais()));
+
+        validarPedidoNaoVazio(pedido);
 
         return repository.save(pedido);
     }

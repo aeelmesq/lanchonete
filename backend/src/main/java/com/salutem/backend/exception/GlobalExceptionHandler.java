@@ -40,4 +40,11 @@ public class GlobalExceptionHandler {
 
         return new ErroResposta(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), "Dados Inválidos", erros);
     }
+
+    @ExceptionHandler(RegraDeNegocioException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErroResposta regraNegocio(RegraDeNegocioException ex)
+    {
+        return new ErroResposta(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(), null);
+    }
 }
