@@ -68,7 +68,13 @@ public class PedidoService {
         List<Ingrediente> validos = new ArrayList<>();
         for (Ingrediente ingrediente : ingredientes)
         {
-            validos.add(ingredienteRepository.findById(ingrediente.getId()).orElseThrow(() -> new RecursoNaoEncontradoException("Ingrediente não encontrado")));
+            Ingrediente encontrado = ingredienteRepository.findById(ingrediente.getId()).orElseThrow(() -> new RecursoNaoEncontradoException("Ingrediente não encontrado"));
+            if (!encontrado.getPodeSerAdicional())
+            {
+                throw new RegraDeNegocioException("Ingrediente " + encontrado.getDescricao() + " precisa ser um adicional");
+            }
+
+            validos.add(encontrado);
         }
 
         return validos;
