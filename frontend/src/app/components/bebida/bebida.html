@@ -1,0 +1,18 @@
+<h2>Bebidas</h2>
+
+<table>
+  <tr>
+    <th>Código</th>
+    <th>Descrição</th>
+    <th>Preço</th>
+    <th>Contém açúcar</th>
+  </tr>
+  @for (bebida of bebidas(); track bebida.id) {
+    <tr>
+      <td>{{ bebida.codigo }}</td>
+      <td>{{ bebida.descricao }}</td>
+      <td>{{ bebida.precoUnitario }}</td>
+      <td>{{ bebida.contemAcucar ? 'Sim' : 'Não' }}</td>
+    </tr>
+  }
+</table>
