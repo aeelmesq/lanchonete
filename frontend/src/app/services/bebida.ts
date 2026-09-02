@@ -2,11 +2,12 @@ import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Service, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bebida } from '../models/bebida';
+import { environment } from '../../environments/environment.development';
 
 @Service()
 export class BebidaService {
   private http = inject(HttpClient);
-  private url = 'http://localhost:8080/bebidas';
+  private url = `${environment.apiUrl}/bebidas`;
 
   termoBusca = signal('');
 
