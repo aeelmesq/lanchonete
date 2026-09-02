@@ -11,5 +11,7 @@ public interface BebidaRepository extends JpaRepository<Bebida, Long> {
 
     List<Bebida> findByDescricaoContainingIgnoreCase(String descricao);
 
+    List<Bebida> findByCodigoContainingIgnoreCaseOrDescricaoIgnoreCase(String codigo, String descricao);
+
     boolean existsByCodigo(String codigo);
 }

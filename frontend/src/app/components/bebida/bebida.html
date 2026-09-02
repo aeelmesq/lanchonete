@@ -1,4 +1,4 @@
-<h3>Nova bebida</h3>
+<h3>{{ form.id ? 'Editar bebida' : 'Nova Bebida' }}</h3>
 
 <form (ngSubmit)="salvar()">
   <input name="codigo" placeholder="Código" [(ngModel)]="form.codigo" required >
@@ -11,9 +11,17 @@
   </label>
 
   <button type="submit">Salvar</button>
+  @if (form.id)
+  {
+    <button type="button" (click)="limpar()">Cancelar</button>
+  }
 </form>
 
 <h2>Bebidas</h2>
+
+<input placeholder="Buscar por descrição" [(ngModel)]="busca" name="name">
+<button type="button" (click)="pesquisar()">Buscar</button>
+<button type="button" (click)="busca = ''; pesquisar()">Limpar</button>
 
 <table>
   <tr>
@@ -21,13 +29,20 @@
     <th>Descrição</th>
     <th>Preço</th>
     <th>Contém açúcar</th>
+    <th>Ações</th>
   </tr>
-  @for (bebida of bebidas(); track bebida.id) {
-    <tr>
-      <td>{{ bebida.codigo }}</td>
-      <td>{{ bebida.descricao }}</td>
-      <td>{{ bebida.precoUnitario }}</td>
-      <td>{{ bebida.contemAcucar ? 'Sim' : 'Não' }}</td>
-    </tr>
+  @if (bebidas.hasValue()) {
+    @for (bebida of bebidas.value(); track bebida.id) {
+      <tr>
+        <td>{{ bebida.codigo }}</td>
+        <td>{{ bebida.descricao }}</td>
+        <td>{{ bebida.precoUnitario }}</td>
+        <td>{{ bebida.contemAcucar ? 'Sim' : 'Não' }}</td>
+        <td>
+          <button type="button" (click)="editar(bebida)">Editar</button>
+          <button type="button" (click)="excluir(bebida.id!)">Excluir</button>
+        </td>
+      </tr>
+    }
   }
 </table>

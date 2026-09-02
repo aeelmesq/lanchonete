@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BebidaService } from '../../services/bebida';
 import { Bebida } from '../../models/bebida';
 import { FormsModule } from '@angular/forms';
@@ -9,28 +9,38 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './bebida.css',
   templateUrl: './bebida.html',
 })
-export class BebidaComponent implements OnInit {
+export class BebidaComponent {
   private service = inject(BebidaService);
-  bebidas = signal<Bebida[]>([])
+  bebidas = this.service.bebidas;
 
   form: Bebida = { codigo: '', descricao: '', precoUnitario: 0, contemAcucar: false}
 
-  ngOnInit()
+  busca = '';
+  pesquisar()
   {
-    this.carregar();
+    this.service.termoBusca.set(this.busca);
   }
 
-  carregar()
+  editar(bebida: Bebida)
   {
-    this.service.listar().subscribe((dados) => this.bebidas.set(dados));
+    this.form = { ...bebida }
   }
 
   salvar()
   {
-    this.service.criar(this.form).subscribe(() => {
+    const acao = this.form.id
+      ? this.service.atualizar(this.form.id, this.form)
+      : this.service.criar(this.form);
+
+    acao.subscribe(() => {
       this.limpar();
-      this.carregar;
+      this.bebidas.reload();
     })
+  }
+
+  excluir(id: number)
+  {
+    this.service.deletar(id).subscribe(() => this.bebidas.reload());
   }
 
   limpar()

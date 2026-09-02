@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Service } from '@angular/core';
+import { HttpClient, httpResource } from '@angular/common/http';
+import { inject, Service, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bebida } from '../models/bebida';
 
@@ -7,6 +7,13 @@ import { Bebida } from '../models/bebida';
 export class BebidaService {
   private http = inject(HttpClient);
   private url = 'http://localhost:8080/bebidas';
+
+  termoBusca = signal('');
+
+  bebidas = httpResource<Bebida[]>(() => {
+    const termo = this.termoBusca();
+    return termo ? `${this.url}?termo=${termo}` : this.url;
+  });
 
   listar(): Observable<Bebida[]>
   {
