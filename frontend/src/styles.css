@@ -1,1 +1,205 @@
-/* You can add global styles to this file, and also import other style files */
+/* ===== Base ===== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1f2933;
+  background: #f7f8fa;
+}
+
+h2 {
+  margin: 32px 0 12px;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+
+/* ===== Navegação ===== */
+
+nav {
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  margin-bottom: 24px;
+  background: #fff;
+  border: 1px solid #dfe3e8;
+  border-radius: 6px;
+}
+
+nav a {
+  padding: 8px 16px;
+  border-radius: 4px;
+  color: #445;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  background: #eef1f5;
+}
+
+nav a.active {
+  background: #2f6fed;
+  color: #fff;
+}
+
+/* ===== Formulário ===== */
+
+form {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #dfe3e8;
+  border-radius: 6px;
+}
+
+fieldset {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border: 1px solid #e4e7eb;
+  border-radius: 6px;
+}
+
+legend {
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7684;
+}
+
+input[type="text"],
+input[type="number"],
+input:not([type]) {
+  padding: 8px 10px;
+  margin: 0 8px 8px 0;
+  min-width: 200px;
+  border: 1px solid #cdd3da;
+  border-radius: 4px;
+  font: inherit;
+  background: #fff;
+}
+
+input:focus {
+  outline: 2px solid #2f6fed;
+  outline-offset: -1px;
+  border-color: transparent;
+}
+
+input::placeholder {
+  color: #9aa5b1;
+}
+
+/* Checkboxes em linha, com rótulo clicável */
+fieldset label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 16px 6px 0;
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* ===== Botões ===== */
+
+button {
+  padding: 8px 16px;
+  border: 1px solid #cdd3da;
+  border-radius: 4px;
+  background: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #eef1f5;
+}
+
+button[type="submit"] {
+  border-color: #2f6fed;
+  background: #2f6fed;
+  color: #fff;
+  font-weight: 500;
+}
+
+button[type="submit"]:hover {
+  background: #2559c9;
+}
+
+/* ===== Tabela ===== */
+
+table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #dfe3e8;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7684;
+  background: #f4f6f8;
+  border-bottom: 1px solid #dfe3e8;
+  white-space: nowrap;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eef1f5;
+  vertical-align: top;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover,
+table tr:hover td {
+  background: #fafbfc;
+}
+
+/* Botões dentro da tabela ficam menores */
+td button {
+  padding: 4px 10px;
+  margin-right: 4px;
+  font-size: 13px;
+}
+
+/* ===== Lista de observações ===== */
+
+ul {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
