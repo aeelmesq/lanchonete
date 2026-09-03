@@ -16,7 +16,7 @@ export class HamburguerComponent {
   hamburgueres = this.service.hamburgueres;
 
   private ingredienteService = inject(IngredienteService);
-  ingredientes = this.ingredienteService.ingredientes;
+  ingredientes = this.ingredienteService.disponiveis;
 
   // Hamburguer
 
@@ -44,7 +44,7 @@ export class HamburguerComponent {
   }
 
   excluir(id: number) {
-    this.service.deletar(id).subscribe(() => this.hamburgueres.reload);
+    this.service.deletar(id).subscribe(() => this.hamburgueres.reload());
   }
 
   limpar() {
