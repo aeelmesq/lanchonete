@@ -16,7 +16,7 @@ export class HamburguerComponent {
   hamburgueres = this.service.hamburgueres;
 
   private ingredienteService = inject(IngredienteService);
-  ingredientes = this.ingredienteService.disponiveis;
+  ingredientes = this.ingredienteService.ingredientes;
 
   // Hamburguer
 
