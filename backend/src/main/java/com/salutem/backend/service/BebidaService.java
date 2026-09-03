@@ -63,7 +63,7 @@ public class BebidaService {
     {
         if (termo != null && !termo.isBlank())
         {
-            return repository.findByCodigoContainingIgnoreCaseOrDescricaoIgnoreCase(termo, termo);
+            return repository.findByCodigoContainingIgnoreCaseOrDescricaoContainingIgnoreCase(termo, termo);
         }
 
         if (codigo != null && !codigo.isBlank())
