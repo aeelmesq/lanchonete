@@ -11,5 +11,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     List<Pedido> findByDescricaoContainingIgnoreCase(String descricao);
 
+    List<Pedido> findByCodigoContainingIgnoreCaseOrDescricaoContainingIgnoreCase(String codigo, String descricao);
+
     boolean existsByCodigo(String codigo);
 }

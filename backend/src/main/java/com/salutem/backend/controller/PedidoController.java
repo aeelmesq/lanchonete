@@ -18,10 +18,11 @@ public class PedidoController {
     @GetMapping
     public List<Pedido> pesquisar(
             @RequestParam(required = false) String codigo,
-            @RequestParam(required = false) String descricao
+            @RequestParam(required = false) String descricao,
+            @RequestParam(required = false) String termo
     )
     {
-        return service.pesquisar(codigo, descricao);
+        return service.pesquisar(codigo, descricao, termo);
     }
 
     @GetMapping("/{id}")
