@@ -11,6 +11,8 @@ public interface IngredienteRepository extends JpaRepository<Ingrediente, Long> 
 
     List<Ingrediente> findByDescricaoContainingIgnoreCase(String descricao);
 
+    List<Ingrediente> findByCodigoContainingIgnoreCaseOrDescricaoContainingIgnoreCase(String codigo, String descricao);
+
     boolean existsByCodigo(String codigo);
 
     List<Ingrediente> findByPodeSerAdicionalTrue();

@@ -51,7 +51,12 @@ public class IngredienteService {
         repository.delete(buscarPorId(id));
     }
 
-    public List<Ingrediente> pesquisar(String codigo, String descricao) {
+    public List<Ingrediente> pesquisar(String codigo, String descricao, String termo) {
+        if (termo != null && !termo.isBlank())
+        {
+            return repository.findByCodigoContainingIgnoreCaseOrDescricaoContainingIgnoreCase(termo, termo);
+        }
+
         if (codigo != null && !codigo.isBlank()) {
             return repository.findByCodigo(codigo).map(List::of).orElse(List.of());
         }
