@@ -69,8 +69,13 @@ public class HamburguerService {
 
     public void deletar(Long id) { repository.delete(buscarPorId(id)); }
 
-    public List<Hamburguer> pesquisar(String codigo, String descricao)
+    public List<Hamburguer> pesquisar(String codigo, String descricao, String termo)
     {
+        if (termo != null && !termo.isBlank())
+        {
+            return repository.findByCodigoContainingIgnoreCaseOrDescricaoContainingIgnoreCase(termo, termo);
+        }
+
         if (codigo != null && !codigo.isBlank())
         {
             return repository.findByCodigo(codigo).map(List::of).orElse(List.of());

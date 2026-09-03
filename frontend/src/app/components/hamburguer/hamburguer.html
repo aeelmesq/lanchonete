@@ -1,0 +1,62 @@
+<h3>{{ form.id ? 'Editar hamburguer' : 'Novo hamburguer'}}</h3>
+
+<form (ngSubmit)="salvar()">
+  <input name="codigo" placeholder="Código" [(ngModel)]="form.codigo" required >
+  <input name="descricao" placeholder="Descrição" [(ngModel)]="form.descricao" required >
+  <input name="valor" type="number" step="0.01" placeholder="Preço" [(ngModel)]="form.valor" >
+
+  <fieldset>
+    <legend>Ingredientes</legend>
+    @if (ingredientes.hasValue())
+    {
+      @for (ing of ingredientes.value(); track ing.id)
+      {
+        <label>
+          <input type="checkbox" [checked]="estaSelecionado(ing)" (change)="alternar(ing)">
+          {{ ing.descricao }}
+        </label>
+      }
+    }
+  </fieldset>
+
+  <button type="submit">Salvar</button>
+  @if (form.id)
+  {
+    <button type="button" (click)="limpar()">Cancelar</button>
+  }
+</form>
+
+<h2>Hamburgueres</h2>
+
+<input placeholder="Buscar por descrição" [(ngModel)]="busca">
+<button type="button" (click)="pesquisar()">Buscar</button>
+<button type="button" (click)="busca = ''; pesquisar()">Limpar</button>
+
+<table>
+  <tr>
+    <th>Código</th>
+    <th>Descrição</th>
+    <th>Preço</th>
+    <th>Ingredientes</th>
+    <th>Ações</th>
+  </tr>
+  @if (hamburgueres.hasValue()) {
+    @for (hamburguer of hamburgueres.value(); track hamburguer.id) {
+      <tr>
+        <td>{{ hamburguer.codigo }}</td>
+        <td>{{ hamburguer.descricao }}</td>
+        <td>{{ hamburguer.valor }}</td>
+        <td>
+          @for (ing of hamburguer.ingredientes; track ing.id; let last = $last)
+          {
+            <span>{{ ing.descricao }}{{ last ? '' : ', '}}</span>
+          }
+        </td>
+        <td>
+          <button type="button" (click)="editar(hamburguer)">Editar</button>
+          <button type="button" (click)="excluir(hamburguer.id!)">Excluir</button>
+        </td>
+      </tr>
+    }
+  }
+</table>

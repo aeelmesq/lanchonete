@@ -11,5 +11,7 @@ public interface HamburguerRepository extends JpaRepository<Hamburguer, Long> {
 
     List<Hamburguer> findByDescricaoContainingIgnoreCase(String descricao);
 
+    List<Hamburguer> findByCodigoContainingIgnoreCaseOrDescricaoContainingIgnoreCase(String codigo, String descricao);
+
     boolean existsByCodigo(String codigo);
 }

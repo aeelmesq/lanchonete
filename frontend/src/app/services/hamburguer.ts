@@ -1,0 +1,38 @@
+import { HttpClient, httpResource } from '@angular/common/http';
+import { inject, Service, signal } from '@angular/core';
+import { environment } from '../../environments/environment.development';
+import { Hamburguer } from '../models/hamburguer';
+import { Observable } from 'rxjs';
+
+@Service()
+export class HamburguerService {
+  private http = inject(HttpClient);
+  private url = `${environment.apiUrl}/hamburgueres`
+
+  termoBusca = signal('');
+
+  hamburgueres = httpResource<Hamburguer[]>(() => {
+    const termo = this.termoBusca();
+    return termo ? `${this.url}?termo=${termo}` : this.url;
+  })
+
+  listar(): Observable<Hamburguer[]>
+  {
+    return this.http.get<Hamburguer[]>(this.url)
+  }
+
+  criar(hamburguer: Hamburguer): Observable<Hamburguer>
+  {
+    return this.http.post<Hamburguer>(this.url, hamburguer)
+  }
+
+  atualizar(id: number, hamburguer: Hamburguer): Observable<Hamburguer>
+  {
+    return this.http.put<Hamburguer>(`${this.url}/${id}`, hamburguer)
+  }
+
+  deletar(id: number): Observable<void>
+  {
+    return this.http.delete<void>(`${this.url}/${id}`);
+  }
+}

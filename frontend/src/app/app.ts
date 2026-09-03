@@ -1,7 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { BebidaComponent } from './components/bebida/bebida';
-import { IngredienteComponent } from './components/ingrediente/ingrediente';
 
 @Component({
   imports: [RouterOutlet, RouterLink],
