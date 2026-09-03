@@ -1,0 +1,110 @@
+<h3>{{ form.id ? 'Editar pedido' : 'Novo pedido' }}</h3>
+
+<form (ngSubmit)="salvar()">
+  <input name="codigo" placeholder="Código" [(ngModel)]="form.codigo" required>
+  <input name="descricao" placeholder="Descrição" [(ngModel)]="form.descricao" required>
+
+  <fieldset>
+    <legend>Cliente</legend>
+    <input name="clienteNome" placeholder="Nome" [(ngModel)]="form.clienteNome" required>
+    <input name="clienteEndereco" placeholder="Endereço" [(ngModel)]="form.clienteEndereco" required>
+    <input name="clienteTelefone" placeholder="Telefone" [(ngModel)]="form.clienteTelefone" required>
+  </fieldset>
+
+  <fieldset>
+    <legend>Hambúrgueres</legend>
+    @if (hamburgueres.hasValue()) {
+      @for (ham of hamburgueres.value(); track ham.id) {
+        <label>
+          <input type="checkbox" [checked]="hamburguerSelecionado(ham)" (change)="alternarHamburguer(ham)">
+          {{ ham.descricao }}
+        </label>
+      }
+    }
+  </fieldset>
+
+  <fieldset>
+    <legend>Bebidas</legend>
+    @if (bebidas.hasValue()) {
+      @for (beb of bebidas.value(); track beb.id) {
+        <label>
+          <input type="checkbox" [checked]="bebidaSelecionada(beb)" (change)="alternarBebida(beb)">
+          {{ beb.descricao }}
+        </label>
+      }
+    }
+  </fieldset>
+
+  <fieldset>
+    <legend>Adicionais</legend>
+    @if (adicionais.hasValue()) {
+      @for (ad of adicionais.value(); track ad.id) {
+        <label>
+          <input type="checkbox" [checked]="adicionalSelecionado(ad)" (change)="alternarAdicional(ad)">
+          {{ ad.descricao }}
+        </label>
+      }
+    }
+  </fieldset>
+
+  <fieldset>
+    <legend>Observações</legend>
+    <input placeholder="Ex.: sem cebola" [(ngModel)]="novaObservacao" name="novaObservacao"
+           (keydown.enter)="adicionarObservacao()">
+    <button type="button" (click)="adicionarObservacao()">Adicionar</button>
+
+    <ul>
+      @for (obs of form.observacoes; track $index) {
+        <li>
+          {{ obs }}
+          <button type="button" (click)="removerObservacao($index)">Remover</button>
+        </li>
+      }
+    </ul>
+  </fieldset>
+
+  <button type="submit">Salvar</button>
+  @if (form.id) {
+    <button type="button" (click)="limpar()">Cancelar</button>
+  }
+</form>
+
+<h2>Pedidos</h2>
+
+<input placeholder="Buscar por código ou descrição" [(ngModel)]="busca" name="busca">
+<button type="button" (click)="pesquisar()">Buscar</button>
+<button type="button" (click)="busca = ''; pesquisar()">Limpar</button>
+
+<table>
+  <tr>
+    <th>Código</th>
+    <th>Data</th>
+    <th>Descrição</th>
+    <th>Cliente</th>
+    <th>Hambúrgueres</th>
+    <th>Bebidas</th>
+    <th>Adicionais</th>
+    <th>Observações</th>
+    <th>Total</th>
+    <th>Ações</th>
+  </tr>
+  @if (pedidos.hasValue()) {
+    @for (pedido of pedidos.value(); track pedido.id) {
+      <tr>
+        <td>{{ pedido.codigo }}</td>
+        <td>{{ pedido.dataPedido | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>{{ pedido.descricao }}</td>
+        <td>{{ pedido.clienteNome }}</td>
+        <td>{{ descricoes(pedido.hamburgueres) }}</td>
+        <td>{{ descricoes(pedido.bebidas) }}</td>
+        <td>{{ descricoes(pedido.adicionais) }}</td>
+        <td>{{ pedido.observacoes.join('; ') }}</td>
+        <td>{{ pedido.total | currency:'BRL' }}</td>
+        <td>
+          <button type="button" (click)="editar(pedido)">Editar</button>
+          <button type="button" (click)="excluir(pedido.id!)">Excluir</button>
+        </td>
+      </tr>
+    }
+  }
+</table>

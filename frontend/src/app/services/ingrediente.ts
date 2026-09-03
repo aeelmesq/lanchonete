@@ -16,7 +16,7 @@ export class IngredienteService {
     return termo ? `${this.url}?termo=${termo}` : this.url;
   });
 
-  disponiveis = httpResource<Ingrediente[]>(() => {
+  adicionais = httpResource<Ingrediente[]>(() => {
     return `${this.url}/adicionais`;
   })
 
