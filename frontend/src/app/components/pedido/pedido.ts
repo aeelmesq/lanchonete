@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PedidoService } from '../../services/pedido';
 import { Pedido } from '../../models/pedido';
@@ -50,14 +50,19 @@ export class PedidoComponent {
     this.form = { ...pedido };
   }
 
+  erro = signal('')
+
   salvar() {
     const acao = this.form.id
       ? this.service.atualizar(this.form.id, this.form)
       : this.service.criar(this.form);
 
-    acao.subscribe(() => {
-      this.limpar();
-      this.pedidos.reload();
+    acao.subscribe({
+      next: () => {
+        this.limpar();
+        this.pedidos.reload();
+      },
+      error: (e) => this.erro.set(e.erro?.mensagem ?? 'Erro ao salvar'),
     });
   }
 

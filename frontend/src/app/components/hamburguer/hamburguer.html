@@ -1,5 +1,9 @@
 <h3>{{ form.id ? 'Editar hamburguer' : 'Novo hamburguer' }}</h3>
 
+@if (erro()) {
+  <p class="erro">{{ erro() }}</p>
+}
+
 <form (ngSubmit)="salvar()">
   <input name="codigo" placeholder="Código" [(ngModel)]="form.codigo" required />
   <input name="descricao" placeholder="Descrição" [(ngModel)]="form.descricao" required />
