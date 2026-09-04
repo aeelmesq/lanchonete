@@ -1,5 +1,16 @@
 # Lanchonete - Teste Técnico Salutem
 
+Aplicação Web para gerenciamento de uma lanchonete, com cadastro de bebidas, ingredientes, hamburgueres e pedidos
+
+## Funcionalidades
+
+- Cadastro, edição, exclusão e pesquisa (por código ou descrição) das quatro entidades
+- Montagem de hamburguer com seleção de ingredientes
+- Pedido com hambúrgueres, bebidas, adicionais e observações
+- **Lançamento de adicionais** (item 3.4) — apenas ingredientes habilitados como adicional
+- **Cálculo automático do total** (item 3.5)
+- Validação de campos obrigatórios e código duplicado (HTTP 400, 404 e 409)
+
 ## Versões
 
 - **Backend:** Java 21 + Spring Boot 4.1.1 (Maven)
@@ -36,4 +47,4 @@ API na URL http://localhost:8080
     npm install
     ng serve
 
-Frontend na URL http://localhost:4200
+Requer o Angular CLI(npm install -g @angular/cli). Frontend na URL http://localhost:4200
