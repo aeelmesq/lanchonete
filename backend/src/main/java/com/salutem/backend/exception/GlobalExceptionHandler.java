@@ -15,26 +15,22 @@ import java.util.Map;
 public class GlobalExceptionHandler {
     @ExceptionHandler(RecursoNaoEncontradoException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErroResposta naoEncontrado(RecursoNaoEncontradoException ex)
-    {
+    public ErroResposta naoEncontrado(RecursoNaoEncontradoException ex) {
         return new ErroResposta(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), ex.getMessage(), null);
     }
 
     @ExceptionHandler(CodigoDuplicadoException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErroResposta codigoDuplicado(CodigoDuplicadoException ex)
-    {
+    public ErroResposta codigoDuplicado(CodigoDuplicadoException ex) {
         return new ErroResposta(LocalDateTime.now(), HttpStatus.CONFLICT.value(), ex.getMessage(), null);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErroResposta dadosInvalidos(MethodArgumentNotValidException ex)
-    {
+    public ErroResposta dadosInvalidos(MethodArgumentNotValidException ex) {
         Map<String, String> erros = new HashMap<>();
 
-        for (FieldError erro : ex.getBindingResult().getFieldErrors())
-        {
+        for (FieldError erro : ex.getBindingResult().getFieldErrors()) {
             erros.put(erro.getField(), erro.getDefaultMessage());
         }
 
@@ -43,8 +39,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RegraDeNegocioException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErroResposta regraNegocio(RegraDeNegocioException ex)
-    {
+    public ErroResposta regraNegocio(RegraDeNegocioException ex) {
         return new ErroResposta(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(), null);
     }
 }

@@ -16,31 +16,30 @@ public class HamburguerService {
     private final HamburguerRepository repository;
     private final IngredienteRepository ingredienteRepository;
 
-    public HamburguerService(HamburguerRepository repository, IngredienteRepository ingredienteRepository)
-    {
+    public HamburguerService(HamburguerRepository repository, IngredienteRepository ingredienteRepository) {
         this.repository = repository;
         this.ingredienteRepository = ingredienteRepository;
     }
 
-    private List<Ingrediente> validarIngredientes(List<Ingrediente> ingredientes)
-    {
+    private List<Ingrediente> validarIngredientes(List<Ingrediente> ingredientes) {
         List<Ingrediente> validos = new ArrayList<>();
-        for (Ingrediente ingrediente : ingredientes)
-        {
+        for (Ingrediente ingrediente : ingredientes) {
             validos.add(ingredienteRepository.findById(ingrediente.getId()).orElseThrow(() -> new RecursoNaoEncontradoException("Ingrediente não encontrado")));
         }
 
         return validos;
     }
 
-    public List<Hamburguer> listarTodos() {return repository.findAll();}
+    public List<Hamburguer> listarTodos() {
+        return repository.findAll();
+    }
 
-    public Hamburguer buscarPorId(Long id) {return repository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Hamburguer não encontrado"));}
+    public Hamburguer buscarPorId(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Hamburguer não encontrado"));
+    }
 
-    public Hamburguer criar(Hamburguer hamburguer)
-    {
-        if (repository.existsByCodigo(hamburguer.getCodigo()))
-        {
+    public Hamburguer criar(Hamburguer hamburguer) {
+        if (repository.existsByCodigo(hamburguer.getCodigo())) {
             throw new CodigoDuplicadoException("Já existe um hamburguer com o código " + hamburguer.getCodigo());
         }
 
@@ -49,12 +48,10 @@ public class HamburguerService {
         return repository.save(hamburguer);
     }
 
-    public Hamburguer atualizar(Long id, Hamburguer dados)
-    {
+    public Hamburguer atualizar(Long id, Hamburguer dados) {
         Hamburguer hamburguer = buscarPorId(id);
 
-        if (!dados.getCodigo().equals(hamburguer.getCodigo()) && repository.existsByCodigo(dados.getCodigo()))
-        {
+        if (!dados.getCodigo().equals(hamburguer.getCodigo()) && repository.existsByCodigo(dados.getCodigo())) {
             throw new CodigoDuplicadoException("Já existe um hamburguer com o código " + dados.getCodigo());
         }
 
@@ -67,22 +64,20 @@ public class HamburguerService {
         return repository.save(hamburguer);
     }
 
-    public void deletar(Long id) { repository.delete(buscarPorId(id)); }
+    public void deletar(Long id) {
+        repository.delete(buscarPorId(id));
+    }
 
-    public List<Hamburguer> pesquisar(String codigo, String descricao, String termo)
-    {
-        if (termo != null && !termo.isBlank())
-        {
+    public List<Hamburguer> pesquisar(String codigo, String descricao, String termo) {
+        if (termo != null && !termo.isBlank()) {
             return repository.findByCodigoContainingIgnoreCaseOrDescricaoContainingIgnoreCase(termo, termo);
         }
 
-        if (codigo != null && !codigo.isBlank())
-        {
+        if (codigo != null && !codigo.isBlank()) {
             return repository.findByCodigo(codigo).map(List::of).orElse(List.of());
         }
 
-        if (descricao != null && !descricao.isBlank())
-        {
+        if (descricao != null && !descricao.isBlank()) {
             return repository.findByDescricaoContainingIgnoreCase(descricao);
         }
 

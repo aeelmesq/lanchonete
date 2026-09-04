@@ -13,35 +13,38 @@ import java.util.List;
 public class HamburguerController {
     private final HamburguerService service;
 
-    public HamburguerController(HamburguerService service) {this.service = service;}
+    public HamburguerController(HamburguerService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<Hamburguer> pesquisar(
             @RequestParam(required = false) String codigo,
             @RequestParam(required = false) String descricao,
             @RequestParam(required = false) String termo
-    )
-    {
+    ) {
         return service.pesquisar(codigo, descricao, termo);
     }
 
     @GetMapping("/{id}")
-    public Hamburguer buscarPorId(@PathVariable Long id) { return service.buscarPorId(id); }
+    public Hamburguer buscarPorId(@PathVariable Long id) {
+        return service.buscarPorId(id);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Hamburguer criar(@Valid @RequestBody Hamburguer hamburguer)
-    {
+    public Hamburguer criar(@Valid @RequestBody Hamburguer hamburguer) {
         return service.criar(hamburguer);
     }
 
     @PutMapping("/{id}")
-    public Hamburguer atualizar(@PathVariable Long id, @Valid @RequestBody Hamburguer dados)
-    {
+    public Hamburguer atualizar(@PathVariable Long id, @Valid @RequestBody Hamburguer dados) {
         return service.atualizar(id, dados);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable Long id) { service.deletar(id); }
+    public void deletar(@PathVariable Long id) {
+        service.deletar(id);
+    }
 }

@@ -13,38 +13,43 @@ import java.util.List;
 public class IngredienteController {
     private final IngredienteService service;
 
-    public IngredienteController(IngredienteService service) { this.service = service; }
+    public IngredienteController(IngredienteService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<Ingrediente> pesquisar(
             @RequestParam(required = false) String codigo,
             @RequestParam(required = false) String descricao,
             @RequestParam(required = false) String termo
-    )
-    {
+    ) {
         return service.pesquisar(codigo, descricao, termo);
     }
 
     @GetMapping("/{id}")
-    public Ingrediente buscarPorId(@PathVariable Long id) {return service.buscarPorId(id);}
+    public Ingrediente buscarPorId(@PathVariable Long id) {
+        return service.buscarPorId(id);
+    }
 
     @GetMapping("/adicionais")
-    public List<Ingrediente> listarAdicionais() {return service.listarAdicionais();}
+    public List<Ingrediente> listarAdicionais() {
+        return service.listarAdicionais();
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Ingrediente criar(@Valid @RequestBody Ingrediente ingrediente)
-    {
+    public Ingrediente criar(@Valid @RequestBody Ingrediente ingrediente) {
         return service.criar(ingrediente);
     }
 
     @PutMapping("/{id}")
-    public Ingrediente atualizar(@PathVariable Long id, @Valid @RequestBody Ingrediente dados)
-    {
+    public Ingrediente atualizar(@PathVariable Long id, @Valid @RequestBody Ingrediente dados) {
         return service.atualizar(id, dados);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable Long id) {service.deletar(id);}
+    public void deletar(@PathVariable Long id) {
+        service.deletar(id);
+    }
 }

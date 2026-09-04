@@ -48,30 +48,23 @@ public class Pedido {
     @ManyToMany
     private List<Ingrediente> adicionais;
 
-    public BigDecimal getTotal()
-    {
+    public BigDecimal getTotal() {
         BigDecimal somaTotal = BigDecimal.ZERO;
 
-        if (hamburgueres != null)
-        {
-            for (Hamburguer hamburguer : hamburgueres)
-            {
+        if (hamburgueres != null) {
+            for (Hamburguer hamburguer : hamburgueres) {
                 somaTotal = somaTotal.add(hamburguer.getValor());
             }
         }
 
-        if (bebidas != null)
-        {
-            for (Bebida bebida : bebidas)
-            {
+        if (bebidas != null) {
+            for (Bebida bebida : bebidas) {
                 somaTotal = somaTotal.add(bebida.getPrecoUnitario());
             }
         }
 
-        if (adicionais != null)
-        {
-            for (Ingrediente ingrediente : adicionais)
-            {
+        if (adicionais != null) {
+            for (Ingrediente ingrediente : adicionais) {
                 somaTotal = somaTotal.add(ingrediente.getPrecoUnitario());
             }
         }

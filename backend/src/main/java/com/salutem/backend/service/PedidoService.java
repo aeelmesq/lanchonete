@@ -26,51 +26,41 @@ public class PedidoService {
 
     // Validações
 
-    private List<Hamburguer> validarHamburgueres(List<Hamburguer> hamburgueres)
-    {
-        if (hamburgueres == null)
-        {
+    private List<Hamburguer> validarHamburgueres(List<Hamburguer> hamburgueres) {
+        if (hamburgueres == null) {
             return new ArrayList<>();
         }
 
         List<Hamburguer> validos = new ArrayList<>();
-        for (Hamburguer hamburguer : hamburgueres)
-        {
+        for (Hamburguer hamburguer : hamburgueres) {
             validos.add(hamburguerRepository.findById(hamburguer.getId()).orElseThrow(() -> new RecursoNaoEncontradoException("Hamburguer não encontrado")));
         }
 
         return validos;
     }
 
-    private List<Bebida> validarBebidas(List<Bebida> bebidas)
-    {
-        if (bebidas == null)
-        {
+    private List<Bebida> validarBebidas(List<Bebida> bebidas) {
+        if (bebidas == null) {
             return new ArrayList<>();
         }
 
         List<Bebida> validos = new ArrayList<>();
-        for (Bebida bebida : bebidas)
-        {
+        for (Bebida bebida : bebidas) {
             validos.add(bebidaRepository.findById(bebida.getId()).orElseThrow(() -> new RecursoNaoEncontradoException("Bebida não encontrada")));
         }
 
         return validos;
     }
 
-    private List<Ingrediente> validarAdicionais(List<Ingrediente> ingredientes)
-    {
-        if (ingredientes == null)
-        {
+    private List<Ingrediente> validarAdicionais(List<Ingrediente> ingredientes) {
+        if (ingredientes == null) {
             return new ArrayList<>();
         }
 
         List<Ingrediente> validos = new ArrayList<>();
-        for (Ingrediente ingrediente : ingredientes)
-        {
+        for (Ingrediente ingrediente : ingredientes) {
             Ingrediente encontrado = ingredienteRepository.findById(ingrediente.getId()).orElseThrow(() -> new RecursoNaoEncontradoException("Ingrediente não encontrado"));
-            if (!encontrado.getPodeSerAdicional())
-            {
+            if (!encontrado.getPodeSerAdicional()) {
                 throw new RegraDeNegocioException("Ingrediente " + encontrado.getDescricao() + " precisa ser um adicional");
             }
 
@@ -80,16 +70,13 @@ public class PedidoService {
         return validos;
     }
 
-    private void validarPedidoNaoVazio(Pedido pedido)
-    {
-        if (pedido.getBebidas().isEmpty() && pedido.getHamburgueres().isEmpty())
-        {
+    private void validarPedidoNaoVazio(Pedido pedido) {
+        if (pedido.getBebidas().isEmpty() && pedido.getHamburgueres().isEmpty()) {
             throw new RegraDeNegocioException("Um pedido tem que ter pelo menos 1 bebida ou hamburguer");
         }
     }
 
-    public PedidoService(PedidoRepository repository, HamburguerRepository hamburguerRepository, BebidaRepository bebidaRepository, IngredienteRepository ingredienteRepository)
-    {
+    public PedidoService(PedidoRepository repository, HamburguerRepository hamburguerRepository, BebidaRepository bebidaRepository, IngredienteRepository ingredienteRepository) {
         this.repository = repository;
         this.hamburguerRepository = hamburguerRepository;
         this.bebidaRepository = bebidaRepository;
@@ -98,13 +85,16 @@ public class PedidoService {
 
     // Métodos públicos
 
-    public List<Pedido> listarTodos() {return repository.findAll();}
+    public List<Pedido> listarTodos() {
+        return repository.findAll();
+    }
 
-    public Pedido buscarPorId(Long id) {return repository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Pedido não encontrado"));}
+    public Pedido buscarPorId(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Pedido não encontrado"));
+    }
 
     public Pedido criar(Pedido pedido) {
-        if (repository.existsByCodigo(pedido.getCodigo()))
-        {
+        if (repository.existsByCodigo(pedido.getCodigo())) {
             throw new CodigoDuplicadoException("Já existe um pedido com o código " + pedido.getCodigo());
         }
 
@@ -119,12 +109,10 @@ public class PedidoService {
         return repository.save(pedido);
     }
 
-    public Pedido atualizar(Long id, Pedido dados)
-    {
+    public Pedido atualizar(Long id, Pedido dados) {
         Pedido pedido = buscarPorId(id);
 
-        if (!dados.getCodigo().equals(pedido.getCodigo()) && repository.existsByCodigo(dados.getCodigo()))
-        {
+        if (!dados.getCodigo().equals(pedido.getCodigo()) && repository.existsByCodigo(dados.getCodigo())) {
             throw new CodigoDuplicadoException("Já existe um pediddo com o código " + dados.getCodigo());
         }
 
@@ -145,22 +133,20 @@ public class PedidoService {
         return repository.save(pedido);
     }
 
-    public void deletar(Long id) { repository.delete(buscarPorId(id)); }
+    public void deletar(Long id) {
+        repository.delete(buscarPorId(id));
+    }
 
-    public List<Pedido> pesquisar(String codigo, String descricao, String termo)
-    {
-        if (termo != null && !termo.isBlank())
-        {
+    public List<Pedido> pesquisar(String codigo, String descricao, String termo) {
+        if (termo != null && !termo.isBlank()) {
             return repository.findByCodigoContainingIgnoreCaseOrDescricaoContainingIgnoreCase(termo, termo);
         }
 
-        if (codigo != null && !codigo.isBlank())
-        {
+        if (codigo != null && !codigo.isBlank()) {
             return repository.findByCodigo(codigo).map(List::of).orElse(List.of());
         }
 
-        if (descricao != null && !descricao.isBlank())
-        {
+        if (descricao != null && !descricao.isBlank()) {
             return repository.findByDescricaoContainingIgnoreCase(descricao);
         }
 

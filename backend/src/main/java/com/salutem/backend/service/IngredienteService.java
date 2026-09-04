@@ -52,8 +52,7 @@ public class IngredienteService {
     }
 
     public List<Ingrediente> pesquisar(String codigo, String descricao, String termo) {
-        if (termo != null && !termo.isBlank())
-        {
+        if (termo != null && !termo.isBlank()) {
             return repository.findByCodigoContainingIgnoreCaseOrDescricaoContainingIgnoreCase(termo, termo);
         }
 
