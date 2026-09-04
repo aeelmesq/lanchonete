@@ -93,9 +93,8 @@ export class PedidoComponent {
     this.form.observacoes = this.form.observacoes.filter((_, i) => i !== index);
   }
 
-  descricoes(itens: {descricao: string}[]): string
-  {
-    return itens.map(i => i.descricao).join(', ')
+  descricoes(itens: { descricao: string }[]): string {
+    return itens.map((i) => i.descricao).join(', ');
   }
 
   // Hamburguer

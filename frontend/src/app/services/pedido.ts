@@ -6,33 +6,29 @@ import { Observable } from 'rxjs';
 
 @Service()
 export class PedidoService {
-  private http = inject(HttpClient)
-  private url = `${environment.apiUrl}/pedidos`
+  private http = inject(HttpClient);
+  private url = `${environment.apiUrl}/pedidos`;
 
-  termoBuscar = signal('')
+  termoBuscar = signal('');
 
   pedidos = httpResource<Pedido[]>(() => {
-    const termo = this.termoBuscar()
+    const termo = this.termoBuscar();
     return termo ? `${this.url}?termo=${termo}` : this.url;
-  })
+  });
 
-  listar(): Observable<Pedido[]>
-  {
-    return this.http.get<Pedido[]>(this.url)
+  listar(): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(this.url);
   }
 
-  criar(pedido: Pedido): Observable<Pedido>
-  {
-    return this.http.post<Pedido>(this.url, pedido)
+  criar(pedido: Pedido): Observable<Pedido> {
+    return this.http.post<Pedido>(this.url, pedido);
   }
 
-  atualizar(id: number, pedido: Pedido): Observable<Pedido>
-  {
-    return this.http.put<Pedido>(`${this.url}/${id}`, pedido)
+  atualizar(id: number, pedido: Pedido): Observable<Pedido> {
+    return this.http.put<Pedido>(`${this.url}/${id}`, pedido);
   }
 
-  deletar(id: number): Observable<void>
-  {
+  deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`);
   }
 }

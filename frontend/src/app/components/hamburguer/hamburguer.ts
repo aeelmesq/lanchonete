@@ -53,19 +53,15 @@ export class HamburguerComponent {
 
   // Ingrediente
 
-  estaSelecionado(ingrediente: Ingrediente): boolean
-  {
-    return this.form.ingredientes.some(i => i.id === ingrediente.id)
+  estaSelecionado(ingrediente: Ingrediente): boolean {
+    return this.form.ingredientes.some((i) => i.id === ingrediente.id);
   }
 
-  alternar(ingrediente: Ingrediente)
-  {
-    if (this.estaSelecionado(ingrediente))
-    {
-      this.form.ingredientes = this.form.ingredientes.filter(i => i.id !== ingrediente.id)
-    } else
-    {
-      this.form.ingredientes = [...this.form.ingredientes, ingrediente]
+  alternar(ingrediente: Ingrediente) {
+    if (this.estaSelecionado(ingrediente)) {
+      this.form.ingredientes = this.form.ingredientes.filter((i) => i.id !== ingrediente.id);
+    } else {
+      this.form.ingredientes = [...this.form.ingredientes, ingrediente];
     }
   }
 }

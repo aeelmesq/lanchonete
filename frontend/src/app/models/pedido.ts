@@ -1,6 +1,6 @@
-import { Bebida } from "./bebida";
-import { Hamburguer } from "./hamburguer";
-import { Ingrediente } from "./ingrediente";
+import { Bebida } from './bebida';
+import { Hamburguer } from './hamburguer';
+import { Ingrediente } from './ingrediente';
 
 export interface Pedido {
   id?: number;

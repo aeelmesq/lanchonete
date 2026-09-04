@@ -16,23 +16,19 @@ export class BebidaService {
     return termo ? `${this.url}?termo=${termo}` : this.url;
   });
 
-  listar(): Observable<Bebida[]>
-  {
-    return this.http.get<Bebida[]>(this.url)
+  listar(): Observable<Bebida[]> {
+    return this.http.get<Bebida[]>(this.url);
   }
 
-  criar(bebida: Bebida): Observable<Bebida>
-  {
-    return this.http.post<Bebida>(this.url, bebida)
+  criar(bebida: Bebida): Observable<Bebida> {
+    return this.http.post<Bebida>(this.url, bebida);
   }
 
-  atualizar(id: number, bebida: Bebida): Observable<Bebida>
-  {
-    return this.http.put<Bebida>(`${this.url}/${id}`, bebida)
+  atualizar(id: number, bebida: Bebida): Observable<Bebida> {
+    return this.http.put<Bebida>(`${this.url}/${id}`, bebida);
   }
 
-  deletar(id: number): Observable<void>
-  {
+  deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`);
   }
 }

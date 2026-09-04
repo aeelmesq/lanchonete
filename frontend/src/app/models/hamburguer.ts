@@ -1,4 +1,4 @@
-import { Ingrediente } from "./ingrediente";
+import { Ingrediente } from './ingrediente';
 
 export interface Hamburguer {
   id?: number;

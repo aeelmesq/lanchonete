@@ -18,7 +18,7 @@ export class IngredienteService {
 
   adicionais = httpResource<Ingrediente[]>(() => {
     return `${this.url}/adicionais`;
-  })
+  });
 
   listar(): Observable<Ingrediente[]> {
     return this.http.get<Ingrediente[]>(this.url);

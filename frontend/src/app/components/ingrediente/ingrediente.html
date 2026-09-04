@@ -1,22 +1,30 @@
-<h3>{{ form.id ? 'Editar ingrediente' : 'Novo ingrediente'}}</h3>
+<h3>{{ form.id ? 'Editar ingrediente' : 'Novo ingrediente' }}</h3>
 
 <form (ngSubmit)="salvar()">
-  <input name="codigo" placeholder="Código" [(ngModel)]="form.codigo" required >
-  <input name="descricao" placeholder="Descrição" [(ngModel)]="form.descricao" required >
-  <input name="precoUnitario" type="number" step="0.01" placeholder="Preço" [(ngModel)]="form.precoUnitario" >
+  <input name="codigo" placeholder="Código" [(ngModel)]="form.codigo" required />
+  <input name="descricao" placeholder="Descrição" [(ngModel)]="form.descricao" required />
+  <input
+    name="precoUnitario"
+    type="number"
+    step="0.01"
+    placeholder="Preço"
+    [(ngModel)]="form.precoUnitario"
+  />
 
-  <label><input type="checkbox" name="podeSerAdicional" [(ngModel)]="form.podeSerAdicional">Pode ser adicional</label>
+  <label
+    ><input type="checkbox" name="podeSerAdicional" [(ngModel)]="form.podeSerAdicional" />Pode ser
+    adicional</label
+  >
 
   <button type="submit">Salvar</button>
-  @if (form.id)
-  {
+  @if (form.id) {
     <button type="button" (click)="limpar()">Cancelar</button>
   }
 </form>
 
 <h2>Ingredientes</h2>
 
-<input placeholder="Buscar por descrição" [(ngModel)]="busca">
+<input placeholder="Buscar por descrição" [(ngModel)]="busca" />
 <button type="button" (click)="pesquisar()">Buscar</button>
 <button type="button" (click)="busca = ''; pesquisar()">Limpar</button>
 

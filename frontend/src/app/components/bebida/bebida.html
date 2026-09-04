@@ -1,25 +1,31 @@
 <h3>{{ form.id ? 'Editar bebida' : 'Nova Bebida' }}</h3>
 
 <form (ngSubmit)="salvar()">
-  <input name="codigo" placeholder="Código" [(ngModel)]="form.codigo" required >
-  <input name="descricao" placeholder="Descrição" [(ngModel)]="form.descricao" required >
-  <input name="precoUnitario" type="number" step="0.01" placeholder="Preço" [(ngModel)]="form.precoUnitario" required >
+  <input name="codigo" placeholder="Código" [(ngModel)]="form.codigo" required />
+  <input name="descricao" placeholder="Descrição" [(ngModel)]="form.descricao" required />
+  <input
+    name="precoUnitario"
+    type="number"
+    step="0.01"
+    placeholder="Preço"
+    [(ngModel)]="form.precoUnitario"
+    required
+  />
 
   <label>
-    <input type="checkbox" name="contemAcucar" [(ngModel)]="form.contemAcucar">
+    <input type="checkbox" name="contemAcucar" [(ngModel)]="form.contemAcucar" />
     Contém açúcar
   </label>
 
   <button type="submit">Salvar</button>
-  @if (form.id)
-  {
+  @if (form.id) {
     <button type="button" (click)="limpar()">Cancelar</button>
   }
 </form>
 
 <h2>Bebidas</h2>
 
-<input placeholder="Buscar por descrição" [(ngModel)]="busca" name="name">
+<input placeholder="Buscar por descrição" [(ngModel)]="busca" name="name" />
 <button type="button" (click)="pesquisar()">Buscar</button>
 <button type="button" (click)="busca = ''; pesquisar()">Limpar</button>
 

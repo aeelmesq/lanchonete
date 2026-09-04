@@ -13,21 +13,18 @@ export class BebidaComponent {
   private service = inject(BebidaService);
   bebidas = this.service.bebidas;
 
-  form: Bebida = { codigo: '', descricao: '', precoUnitario: 0, contemAcucar: false}
+  form: Bebida = { codigo: '', descricao: '', precoUnitario: 0, contemAcucar: false };
 
   busca = '';
-  pesquisar()
-  {
+  pesquisar() {
     this.service.termoBusca.set(this.busca);
   }
 
-  editar(bebida: Bebida)
-  {
-    this.form = { ...bebida }
+  editar(bebida: Bebida) {
+    this.form = { ...bebida };
   }
 
-  salvar()
-  {
+  salvar() {
     const acao = this.form.id
       ? this.service.atualizar(this.form.id, this.form)
       : this.service.criar(this.form);
@@ -35,16 +32,14 @@ export class BebidaComponent {
     acao.subscribe(() => {
       this.limpar();
       this.bebidas.reload();
-    })
+    });
   }
 
-  excluir(id: number)
-  {
+  excluir(id: number) {
     this.service.deletar(id).subscribe(() => this.bebidas.reload());
   }
 
-  limpar()
-  {
-    this.form = { codigo: '', descricao: '', precoUnitario: 0, contemAcucar: false }
+  limpar() {
+    this.form = { codigo: '', descricao: '', precoUnitario: 0, contemAcucar: false };
   }
 }
