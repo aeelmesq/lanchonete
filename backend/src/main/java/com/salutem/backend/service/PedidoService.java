@@ -113,7 +113,7 @@ public class PedidoService {
         Pedido pedido = buscarPorId(id);
 
         if (!dados.getCodigo().equals(pedido.getCodigo()) && repository.existsByCodigo(dados.getCodigo())) {
-            throw new CodigoDuplicadoException("Já existe um pediddo com o código " + dados.getCodigo());
+            throw new CodigoDuplicadoException("Já existe um pedido com o código " + dados.getCodigo());
         }
 
         pedido.setCodigo(dados.getCodigo());
